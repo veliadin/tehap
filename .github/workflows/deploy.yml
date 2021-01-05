@@ -1,0 +1,48 @@
+name: Tehapy Deploy
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Setup Java JDK
+      uses: actions/setup-java@v1.4.3
+      with:
+    # The Java version to make available on the path. Takes a whole or semver Java version, or 1.x syntax (e.g. 1.8 => Java 8.x). Early access versions can be specified in the form of e.g. 14-ea, 14.0.0-ea, or 14.0.0-ea.28
+        java-version: 1.8
+    - run: npm ci
+      working-directory: ./Tehap_FrontEnd
+    - run: npm run build --if-present
+      working-directory: ./Tehap_FrontEnd
+    - name: copy react to spring static resources
+      run: |
+        mkdir -p TehapBackEnd/src/main/resources/static
+        cp -a Tehap_FrontEnd/build/. TehapBackEnd/src/main/resources/static/
+        
+    - name: Build spring
+      run: mvn -B package --file pom.xml
+      working-directory: ./TehapBackEnd
+    - name: SFTP Deploy
+      # You may pin to the exact commit or the version.
+      # uses: wlixcc/SFTP-Deploy-Action@cf8d9e5b504ce4aab358e6231495c72a7dc18dcd
+      uses: wlixcc/SFTP-Deploy-Action@1.1
+      with:
+        # username
+        username: ${{secrets.USERNAME}}
+        # your sftp server
+        server:  ${{secrets.IP}}
+        # you can copy private_key from your *.pem file, keep format
+        ssh_private_key: ${{secrets.SSH}}
+        # will put all file under this path
+        local_path: TehapBackEnd/target/tehap-0.0.1-SNAPSHOT.jar
+        # files will copy to under remote_path
+        remote_path: /home/adinveli
