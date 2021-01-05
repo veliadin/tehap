@@ -23,6 +23,8 @@ jobs:
       working-directory: ./Tehap_FrontEnd
     - run: npm run build --if-present
       working-directory: ./Tehap_FrontEnd
+      env:
+        CI: false
     - name: copy react to spring static resources
       run: |
         mkdir -p TehapBackEnd/src/main/resources/static
