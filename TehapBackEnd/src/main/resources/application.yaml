@@ -1,0 +1,32 @@
+spring:
+  jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:  
+    url: "jdbc:postgresql://34.69.58.207/testforreactproject"  
+    username: postgres  
+    password: 000972//
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 100
+  profiles:
+    active:
+    - dev
+    servlet:
+      multipart:
+        max-file-size: 10MB
+
+upload-path : picture-storage
+        
+---
+spring:
+  profiles: dev
+upload-path: storage-dev
