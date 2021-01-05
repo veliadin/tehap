@@ -17,7 +17,6 @@ const UserPage = (props) => {
 
   const pendingApiCall = useApiProgress('get', '/api/users/' + username, true);
 
-
   useEffect(() => {
     setNotFound(false);
   }, [user]);
@@ -56,9 +55,6 @@ const UserPage = (props) => {
   if (pendingApiCall || user.username !== username) {
     return <Spinner />
   }
-
-
-
 
   return (
     <div className="container">
