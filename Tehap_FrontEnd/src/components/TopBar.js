@@ -64,9 +64,8 @@ const TopBar = (props) => {
                 </li>
             </ul>
         </div>
-
-
     );
+
     if (isLoggedIn) {
         let dropdownClass = 'dropdown-menu p-0 shadow';
         if (menuVisible) {
@@ -113,13 +112,12 @@ const TopBar = (props) => {
         )
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <div className="container">
-                <Link className="navbar-brand text-" to="/">
-                    <img src={icon} width="50" alt="icon" /> TEHAPY
-                </Link>
-                {links}
-            </div>
+        <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-dark bg-dark fixed-top">
+            <Link className="navbar-brand text-" to="/">
+                <img src={icon} width="50" alt="icon" /> TEHAPY
+            </Link>
+            {links}
+
         </nav>
     );
 }
