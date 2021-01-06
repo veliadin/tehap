@@ -90,18 +90,18 @@ const UserSignupPage = (props) => {
                                 <div class=" mb-4 px-3 col-lg-6">
                                     <form>
                                         <div className="form-group">
-                                            <Input name="username" label={t('Username')} error={usernameError} onChange={onChange} />
-                                            <Input name="usersurname" label={t('User Surname')} error={usersurnameError} onChange={onChange} />
-                                            <Input name="password" label={t('Password')} error={passwordError} onChange={onChange} type="password" />
-                                            <Input name="passwordRepeat" label={t('Password Repeat')} error={passwordRepeatError} onChange={onChange} type="password" />
+                                            <Input name="displayName" label={t('Username')} error={displayNameError} onChange={onChange} />
+                                            <Input name="username" label={t('Name')} error={usernameError} onChange={onChange} />
+                                            <Input name="usersurname" label={t('Surname')} error={usersurnameError} onChange={onChange} />
+                                            <Input name="email" label={t('Email')} error={emailError} onChange={onChange} />
                                         </div>
                                     </form>
                                 </div>
                                 <div class=" mb-4 px-3 col-lg-6">
                                     <form>
                                         <div className="form-group">
-                                            <Input name="email" label={t('Email')} error={emailError} onChange={onChange} />
-                                            <Input name="displayName" label={t('Display Name')} error={displayNameError} onChange={onChange} />
+                                            <Input name="password" label={t('Password')} error={passwordError} onChange={onChange} type="password" />
+                                            <Input name="passwordRepeat" label={t('Password Repeat')} error={passwordRepeatError} onChange={onChange} type="password" />
                                             <Input name="university" label={t('University')} error={universityError} onChange={onChange} />
                                             <Input name="branch" label={t('Branch')} error={branchError} onChange={onChange} />
                                         </div>

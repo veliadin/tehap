@@ -52,7 +52,9 @@ i18n.use(initReactI18next).init({
                 "Activity Location": "Activity Location",
                 "Promotional Picture": "Promotional Picture",
                 "Location": "Location",
-                "When": "When"
+                "When": "When",
+                "Name": "Name",
+                "Surname": "Surname",
             }
         },
         tr: {
@@ -105,6 +107,8 @@ i18n.use(initReactI18next).init({
                 "Promotional Picture": "Tanıtım Resmi",
                 "Location": "Yer",
                 "When": "Ne zaman",
+                "Name": "İsim",
+                "Surname": "Soyisim",
             }
         }
     },

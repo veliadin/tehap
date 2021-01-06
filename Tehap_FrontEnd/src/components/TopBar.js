@@ -48,22 +48,20 @@ const TopBar = (props) => {
 
 
     let links = (
-        <div className="collapse navbar-collapse">
-            <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                    <Link className="nav-link"
-                        to="/">{t('Events')}</Link>
-                </li>
-                <li className="nav-item">
-                    <Link className="nav-link"
-                        to="/login">{t('Login')}</Link>
-                </li>
-                <li class="nav-item">
-                    <Link className="nav-link"
-                        to="/signup">{t('Sign Up')}</Link>
-                </li>
-            </ul>
-        </div>
+        <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+                <Link className="nav-link"
+                    to="/">{t('Events')}</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link"
+                    to="/login">{t('Login')}</Link>
+            </li>
+            <li class="nav-item">
+                <Link className="nav-link"
+                    to="/signup">{t('Sign Up')}</Link>
+            </li>
+        </ul>
     );
 
     if (isLoggedIn) {
@@ -112,13 +110,16 @@ const TopBar = (props) => {
         )
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-dark bg-dark fixed-top">
-            <Link className="navbar-brand text-" to="/">
-                <img src={icon} width="50" alt="icon" /> TEHAPY
+        <div className="shadow-sm bg-dark mb-2 fixed-top">
+            <nav className="navbar navbar-dark container navbar-expand">
+                <Link className="navbar-brand" to="/" >
+                    <img src={icon} width="50" alt="icon" /> TEHAPY
             </Link>
-            {links}
+                {links}
 
-        </nav>
+            </nav>
+        </div>
+
     );
 }
 
