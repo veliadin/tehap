@@ -14,7 +14,9 @@ const ActivityView = (props) => {
     const { activity, onDeleteActivity } = props;
     const { user, content, timestamp, fileAttachmentViewModel, id } = activity;
     const { username, image } = user;
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
+    const [modalJoinVisible, setModalJoinVisible] = useState(false);
+
     const { t } = useTranslation();
     const { i18n } = useTranslation();
 
@@ -22,15 +24,23 @@ const ActivityView = (props) => {
 
     const ownedByLoggedInUser = loggedInUser === username;
 
-    const pendingApiCall = useApiProgress('delete', `/api/deleteActivity/${id}`, true);
+    const pendingDeleteApiCall = useApiProgress('delete', `/api/deleteActivity/${id}`, true);
+    //const pendingJoinApiCall =
 
     const onClickDeleteActivity = async () => {
         await deleteActivity(id);
         onDeleteActivity(id);
     };
-    const onClickCancel = () => {
-        setModalVisible(false);
+    const onClickCancelDelete = () => {
+        setModalDeleteVisible(false);
     };
+
+    const onClickJoinActivity = async () => {
+        console.log('click join activity');
+    };
+    const onClickCancelJoin = () => {
+        setModalJoinVisible(false);
+    }
     return (
         <>
             <div className="card mb-3">
@@ -60,11 +70,20 @@ const ActivityView = (props) => {
                     {ownedByLoggedInUser && (<button
                         className="btn btn-delete-link m-auto"
                         style={{ marginLeft: 50 }}
-                        onClick={() => setModalVisible(true)}
+                        onClick={() => setModalDeleteVisible(true)}
                     >
                         <span className="material-icons">
                             delete_outline
                     </span>
+                    </button>)}
+                    {!ownedByLoggedInUser && loggedInUser && (<button
+                        className="btn btn-delete-link m-auto"
+                        style={{ marginLeft: 50 }}
+                        onClick={() => setModalJoinVisible(true)}
+                    >
+                        <span className="material-icons">
+                            keyboard_arrow_right
+                        </span>
                     </button>)}
                 </div>
                 <div className="card-footer text-muted d-flex">
@@ -77,8 +96,9 @@ const ActivityView = (props) => {
                 </p>
                 </div>
             </div>
-            <Modal visible={modalVisible}
-                onClickCancel={onClickCancel}
+            <Modal
+                visible={modalDeleteVisible}
+                onClickCancel={onClickCancelDelete}
                 onClickOk={onClickDeleteActivity}
                 title={t('Delete Activity')}
 
@@ -88,8 +108,23 @@ const ActivityView = (props) => {
                         {activity.title}
                     </>
                 }
-                pendingApiCall={pendingApiCall}
+                pendingDeleteApiCall={pendingDeleteApiCall}
                 okButtonText={t('Delete Activity')}
+            />
+            <Modal
+                visible={modalJoinVisible}
+                onClickCancel={onClickCancelJoin}
+                onClickOk={onClickJoinActivity}
+                title={t('Join Activity')}
+
+                message={
+                    <>
+                        <p><strong>{t('Are you sure to join this activity?')}</strong></p>
+                        {activity.title}
+                    </>
+                }
+                pendingDeleteApiCall={pendingDeleteApiCall}
+                okButtonText={t('Join Activity')}
             />
         </>
     );

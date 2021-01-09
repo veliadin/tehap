@@ -112,6 +112,7 @@ const ActivitySubmit = () => {
                     onFocus={() => setFocused(true)}
                     onChange={(event) => setTitle(event.target.value)}
                     value={title}
+                    placeholder={focused ? null : t('Create Activity')}
                 />
                 <div className="invalid-feedback">{errors.title}</div>
                 {focused && (

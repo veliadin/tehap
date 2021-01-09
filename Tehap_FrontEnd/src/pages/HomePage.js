@@ -12,13 +12,17 @@ const HomePage = () => {
         <div className="container">
             <div className="row">
                 {isLoggedIn &&
-                    <div className="col-md-6">
-                        <h1 className="my-4">{t('Create Activity')}</h1>
+                    <div className="col-md-12">
+                        <h1 className="my-4 text-center">{t('Activities')}</h1>
                         <ActivitySubmit />
-                    </div>}
-                <div className="col-md-6">
-                    <h1 className="my-4">{t('Activities')}</h1>
-                    <Activities />
+                    </div>
+                }
+
+                <div className="col-md-12">
+                    <br></br>
+                    <hr></hr>
+                    <br></br>
+                    <  Activities />
                 </div>
             </div>
         </div>
