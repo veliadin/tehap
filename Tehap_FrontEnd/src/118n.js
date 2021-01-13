@@ -62,7 +62,7 @@ i18n.use(initReactI18next).init({
                 'Sign Up': 'Kayıt Ol',
                 'Password mismatch': 'Şifreniz eşleşmiyor',
                 'Username': 'Kullanıcı Adı',
-                'Display Name': 'Gözükecek isim',
+                'Display Name': 'Gözükecek İsim',
                 'Password': 'Şifre',
                 'Password Repeat': 'Şifre Tekrar',
                 'Login': 'Giriş Yap',
@@ -108,7 +108,7 @@ i18n.use(initReactI18next).init({
                 "Location": "Yer",
                 "When": "Ne zaman",
                 "Name": "İsim",
-                "Surname": "Soyisim",
+                "Surname": "Kullanıcı Soyadı",
             }
         }
     },
