@@ -62,7 +62,7 @@ i18n.use(initReactI18next).init({
                 'Sign Up': 'Kayıt Ol',
                 'Password mismatch': 'Şifreniz eşleşmiyor',
                 'Username': 'Kullanıcı Adı',
-                'Display Name': 'Tercih edilen isim',
+                'Display Name': 'Gözükecek isim',
                 'Password': 'Şifre',
                 'Password Repeat': 'Şifre Tekrar',
                 'Login': 'Giriş Yap',

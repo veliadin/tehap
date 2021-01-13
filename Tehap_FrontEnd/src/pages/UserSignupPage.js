@@ -90,9 +90,9 @@ const UserSignupPage = (props) => {
                                 <div class=" mb-4 px-3 col-lg-6">
                                     <form>
                                         <div className="form-group">
-                                            <Input name="displayName" label={t('Username')} error={displayNameError} onChange={onChange} />
-                                            <Input name="username" label={t('Name')} error={usernameError} onChange={onChange} />
+                                            <Input name="username" label={t('Username')} error={usernameError} onChange={onChange} />
                                             <Input name="usersurname" label={t('Surname')} error={usersurnameError} onChange={onChange} />
+                                            <Input name="displayName" label={t('Display Name')} error={displayNameError} onChange={onChange} />
                                             <Input name="email" label={t('Email')} error={emailError} onChange={onChange} />
                                         </div>
                                     </form>
