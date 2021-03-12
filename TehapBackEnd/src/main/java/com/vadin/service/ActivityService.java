@@ -39,6 +39,17 @@ public class ActivityService {
 		this.userService = userService;
 	}
 	
+	public void saveAttendActivity(long activityId, Users user) {
+		try {
+			activityRepository.saveAttendUser(activityId, user.getId());
+			System.out.println("saveAttendActivity Correct");
+		} catch (Exception e) {
+			System.out.println("saveAttendActivity Error : " +e.toString());
+		}
+		
+	}
+	
+	
 	public void saveActivity(ActivitySubmitViewModel activitySubmitViewModel, Users user) {
 		Activity activity = new Activity();
 		activity.setTitle(activitySubmitViewModel.getTitle());
@@ -96,6 +107,10 @@ public class ActivityService {
 			specification = specification.and(userIs(inDb));
 		}
 		return activityRepository.findAll(specification, sort);
+	}
+	
+	public List<Activity> findActivitiesByUserAttendedId(long id){
+		return activityRepository.findActivitiesByUserAttendedId(id);
 	}
 
 	Specification<Activity> idLessThan(long id) {

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import ActivitySubmit from '../components/ActivitySubmit';
 import Activities from '../components/Activities';
 import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
-    const { isLoggedIn } = useSelector(store => ({ isLoggedIn: store.isLoggedIn }));
+    const { isLoggedIn, loggedInUser } = useSelector(store => ({ isLoggedIn: store.isLoggedIn, loggedInUser: store.username }));
     const { t } = useTranslation();
 
     return (
@@ -28,11 +28,9 @@ const HomePage = () => {
         </div>
 
 
-        /*
-            <div className="container">
-                <UserList />
-            </div>
-        */
+
+
+
     );
 };
 

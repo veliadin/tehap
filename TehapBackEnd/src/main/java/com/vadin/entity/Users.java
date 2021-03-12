@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,6 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vadin.annotation.UniqueUsername;
 
 @Entity
@@ -33,11 +35,11 @@ public class Users implements UserDetails {
 	@UniqueUsername
 	private String username;
 
-	@NotNull
+	@NotNull(message = "{tehap.constraint.displayName.NotNull.message}")
 	@Size(min = 4, max = 255)
 	private String displayName;
 
-	@NotNull
+	@NotNull(message = "{tehap.constraint.password.NotNull.message}")
 	@Size(min = 8, max = 255)
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{tehap.constraint.password.Pattern.message}")
 	private String password;
@@ -45,30 +47,46 @@ public class Users implements UserDetails {
 	private String image;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private List<Activity> activities;
+	
+	@ManyToMany(cascade = CascadeType.REMOVE,mappedBy = "attendedUsers")
+	@JsonIgnore
+	private List<Activity> attendedActivities;
 
-	
+	@NotNull(message = "{tehap.constraint.email.NotNull.message}")
 	private String email;
-	
+
+	@NotNull(message = "{tehap.constraint.userSurname.NotNull.message}")
 	private String usersurname;
-	
+
+	@NotNull(message = "{tehap.constraint.university.NotNull.message}")
 	private String university;
-	
+
+	@NotNull(message = "{tehap.constraint.branch.NotNull.message}")
 	private String branch;
 	
+	@OneToMany(mappedBy = "to")
+	@JsonIgnore
+	private List<Followers> followers;
 	
-	
-	
+	@OneToMany(mappedBy = "from")
+	@JsonIgnore
+	private List<Followers> following;
+
 	public Users() {
 		super();
 	}
 
-	
 	public Users(long id,
 			@NotNull(message = "{tehap.constraint.username.NotNull.message}") @Size(min = 4, max = 255) String username,
 			@NotNull @Size(min = 4, max = 255) String displayName,
-			@NotNull @Size(min = 8, max = 255) @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{tehap.constraint.password.Pattern.message}") String password,
-			String image, List<Activity> activities, String email, String usersurname, String university,
+			@NotNull @Size(min = 8, max = 255) @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", 
+			message = "{tehap.constraint.password.Pattern.message}") String password,
+			String image, List<Activity> activities, 
+			String email, 
+			String usersurname, 
+			String university,
 			String branch) {
 		super();
 		this.id = id;
@@ -83,22 +101,21 @@ public class Users implements UserDetails {
 		this.branch = branch;
 	}
 
-
-	/*public Users(long id,
-			@NotNull(message = "{tehap.constraint.username.NotNull.message}") @Size(min = 4, max = 255) String username,
-			@NotNull @Size(min = 4, max = 255) String displayName,
-			@NotNull @Size(min = 8, max = 255) @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{tehap.constraint.password.Pattern.message}") 
-			String password,
-			String image, 
-			List<Activity> activities) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.displayName = displayName;
-		this.password = password;
-		this.image = image;
-		this.activities = activities;
-	}*/
+	/*
+	 * public Users(long id,
+	 * 
+	 * @NotNull(message = "{tehap.constraint.username.NotNull.message}") @Size(min =
+	 * 4, max = 255) String username,
+	 * 
+	 * @NotNull @Size(min = 4, max = 255) String displayName,
+	 * 
+	 * @NotNull @Size(min = 8, max = 255) @Pattern(regexp =
+	 * "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message =
+	 * "{tehap.constraint.password.Pattern.message}") String password, String image,
+	 * List<Activity> activities) { super(); this.id = id; this.username = username;
+	 * this.displayName = displayName; this.password = password; this.image = image;
+	 * this.activities = activities; }
+	 */
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -177,52 +194,41 @@ public class Users implements UserDetails {
 		this.activities = activities;
 	}
 
-	
-	
 	public String getEmail() {
 		return email;
 	}
-
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public String getUsersurname() {
 		return usersurname;
 	}
-
 
 	public void setUsersurname(String usersurname) {
 		this.usersurname = usersurname;
 	}
 
-
 	public String getUniversity() {
 		return university;
 	}
-
 
 	public void setUniversity(String university) {
 		this.university = university;
 	}
 
-
 	public String getBranch() {
 		return branch;
 	}
-
 
 	public void setBranch(String branch) {
 		this.branch = branch;
 	}
 
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 
 	@Override
 	public String toString() {

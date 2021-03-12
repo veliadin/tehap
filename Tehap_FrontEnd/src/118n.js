@@ -55,6 +55,10 @@ i18n.use(initReactI18next).init({
                 "When": "When",
                 "Name": "Name",
                 "Surname": "Surname",
+                "Followers": "Followers",
+                "Following": "Following",
+                "Join Activity": "Join Activity",
+                "Are you sure to join this activity?": "Are you sure to join this activity?"
             }
         },
         tr: {
@@ -73,7 +77,7 @@ i18n.use(initReactI18next).init({
                 "Load Failure": "Liste yüklenemedi",
                 "User not found.": "Kullanıcı bulunamadı.",
                 "Edit": "Düzenle",
-                "Change Display Name": "Kullanıcı Adınızı Değiştiriniz",
+                "Change Display Name": "Görünen Adınızı Değiştiriniz",
                 "Save": "Kaydet",
                 "Cancel": "İptal et",
                 "Events": "Etkinlikler",
@@ -109,6 +113,11 @@ i18n.use(initReactI18next).init({
                 "When": "Ne zaman",
                 "Name": "İsim",
                 "Surname": "Kullanıcı Soyadı",
+                "Followers": "Takipçi",
+                "Following": "Takip",
+                "Join Activity": "Etkinliğe Katıl",
+                "Are you sure to join this activity?": "Etkinliğe katılmak istediğine emin misin?"
+
             }
         }
     },

@@ -73,4 +73,28 @@ export const deleteActivity = id => {
 
 export const deleteUser = username => {
     return axios.delete(`/api/users/delete/${username}`);
-} 
+}
+
+export const follow = (username) => {
+    return axios.post(`/api/follow/${username}`)
+}
+
+export const unfollow = (username) => {
+    return axios.delete(`/api/unfollow/${username}`)
+}
+
+export const getFollowersCount = (username) => {
+    return axios.get(`/api/getFollowersCount/${username}`)
+}
+
+export const getFollowingCount = (username) => {
+    return axios.get(`/api/getFollowingCount/${username}`)
+}
+
+export const getTheUserFollow = (username) => {
+    return axios.get(`/api/getTheUserFollow/${username}`)
+}
+
+export const saveAttendedUser = (activityId) => {
+    return axios.post(`/api/saveAttendedUser/${activityId}`);
+}

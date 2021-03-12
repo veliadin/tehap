@@ -1,6 +1,7 @@
 package com.vadin.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,14 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+
 @Entity
 public class Activity {
 
@@ -23,7 +25,7 @@ public class Activity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(length = 1000) // karakter sayısı maks 1000
+	@Column(length = 1000)
 	private String title;
 
 	private String description;
@@ -40,9 +42,15 @@ public class Activity {
 	private Date timestamp;
 
 	@ManyToOne
+	@JsonIgnore
 	private Users user;
 
+	@ManyToMany(cascade = CascadeType.REMOVE)
+	@JsonIgnore
+	private List<Users> attendedUsers;
+
 	@OneToOne(mappedBy = "activity", cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private FileAttachment fileAttachment;
 
 	public Activity() {
@@ -50,7 +58,8 @@ public class Activity {
 	}
 
 	public Activity(long id, String title, String description, String location, Date startDate, String activityHour,
-			String activityMinute, Date timestamp, Users user, FileAttachment fileAttachment) {
+			String activityMinute, Date timestamp, Users user, List<Users> attendedUsers,
+			FileAttachment fileAttachment) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -61,6 +70,7 @@ public class Activity {
 		this.activityMinute = activityMinute;
 		this.timestamp = timestamp;
 		this.user = user;
+		this.attendedUsers = attendedUsers;
 		this.fileAttachment = fileAttachment;
 	}
 
@@ -142,6 +152,14 @@ public class Activity {
 
 	public void setActivityMinute(String activityMinute) {
 		this.activityMinute = activityMinute;
+	}
+
+	public List<Users> getAttendedUsers() {
+		return attendedUsers;
+	}
+
+	public void setAttendedUsers(List<Users> attendedUsers) {
+		this.attendedUsers = attendedUsers;
 	}
 
 }

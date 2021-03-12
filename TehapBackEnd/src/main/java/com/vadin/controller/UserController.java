@@ -73,5 +73,4 @@ public class UserController {
 		userService.deleteUser(username);
 		return new GenericResponse("User is deleted");
 	}
-
 }

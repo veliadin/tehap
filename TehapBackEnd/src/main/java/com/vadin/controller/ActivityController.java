@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vadin.annotation.CurrentUser;
+import com.vadin.entity.Activity;
 import com.vadin.entity.Users;
 import com.vadin.entity.viewmodel.ActivitySubmitViewModel;
 import com.vadin.entity.viewmodel.ActivityViewModel;
@@ -40,7 +41,6 @@ public class ActivityController {
 	@PostMapping("/createActivity")
 	GenericResponse saveActivity(@Valid @RequestBody ActivitySubmitViewModel activitySubmitViewModel,
 			@CurrentUser Users user) {
-		System.out.println(activitySubmitViewModel.getDescription());
 		activityService.saveActivity(activitySubmitViewModel, user);
 		return new GenericResponse("Activity is saved.");
 	}
@@ -80,6 +80,17 @@ public class ActivityController {
 	GenericResponse deleteActivity(@PathVariable long id) {
 		activityService.delete(id);
 		return new GenericResponse("Activity deleted");
+	}
+	
+	@PostMapping("/saveAttendedUser/{activityId}")
+	GenericResponse saveAttendedUser(@PathVariable long activityId, @CurrentUser Users user) {
+		activityService.saveAttendActivity(activityId, user);
+		return new GenericResponse("ActivityAttended Completed...");	
+	}
+	
+	@GetMapping("/findActivitiesByUserAttendedId/{id}")
+	List<Activity> findActivitiesByUserAttendedId(@PathVariable long id){
+		return activityService.findActivitiesByUserAttendedId(id);
 	}
 
 }

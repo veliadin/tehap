@@ -10,21 +10,20 @@ import '../css/style.css';
 const UserSignupPage = (props) => {
 
     const dispatch = useDispatch();
+    const [proImage, setProImage] = useState();
 
     const [form, setForm] = useState({
         username: null,
         displayName: null,
         password: null,
         passwordRepeat: null,
-
         email: null,
         usersurname: null,
         university: null,
         branch: null,
-
+        image: null,
     })
     const [errors, setErrors] = useState({});
-
 
     const onChange = event => {
         const { name, value } = event.target;
@@ -39,12 +38,29 @@ const UserSignupPage = (props) => {
         });
     };
 
+    const onChangeFile = (event) => {
+        if (event.target.files.length < 1) {
+            return;
+        }
+        console.log(event);
+        const file = event.target.files[0];
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            setProImage(fileReader.result);
+        }
+        fileReader.readAsDataURL(file);
+    }
+
     const onClickSignup = async event => {
         event.preventDefault();
-
         const { history } = props; //signuphandler
-        const { push } = history; //signup handler
-        const { username, displayName, password, email, usersurname, university, branch } = form;
+        const { push } = history; //signuphandler
+        const { username, displayName, password, email, usersurname, university, branch, image } = form;
+
+        if (proImage) {
+            form.image = proImage.split(',')[1];
+        }
+        console.log(form.image);
         const body = {
             username,
             displayName,
@@ -52,9 +68,9 @@ const UserSignupPage = (props) => {
             email,
             usersurname,
             university,
-            branch
+            branch,
+            image,
         }
-
         try {
             const response = await dispatch(signupHandler(body));
             push('/login');
@@ -63,7 +79,6 @@ const UserSignupPage = (props) => {
                 setErrors(error.response.data.validationErrors);
             }
         }
-
     };
     const { t } = useTranslation();
     const { username: usernameError, displayName: displayNameError, password: passwordError, passwordRepeat, usersurname: usersurnameError, email: emailError, university: universityError, branch: branchError } = errors;
@@ -78,16 +93,15 @@ const UserSignupPage = (props) => {
     return (
         <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
             <div className="card card0 border-0">
-                <div class="row d-flex">
-
-                    <div class="col-lg-2">
+                <div className="row d-flex">
+                    <div className="col-lg-2">
                     </div>
-
-                    <div class="col-lg-8">
+                    <div className="col-lg-8">
                         <h1 className="text-center">{t('Sign Up')}</h1>
-                        <div class="card2 card border-0 px-1 py-3">
+                        <div className="card2 card border-0 px-1 py-3">
+                            <Input type="file" onChange={onChangeFile} />
                             <div className="row">
-                                <div class=" mb-4 px-3 col-lg-6">
+                                <div className=" mb-4 px-3 col-lg-6">
                                     <form>
                                         <div className="form-group">
                                             <Input name="username" label={t('Username')} error={usernameError} onChange={onChange} />
@@ -97,7 +111,7 @@ const UserSignupPage = (props) => {
                                         </div>
                                     </form>
                                 </div>
-                                <div class=" mb-4 px-3 col-lg-6">
+                                <div className=" mb-4 px-3 col-lg-6">
                                     <form>
                                         <div className="form-group">
                                             <Input name="password" label={t('Password')} error={passwordError} onChange={onChange} type="password" />
@@ -117,7 +131,7 @@ const UserSignupPage = (props) => {
                         </div>
 
                     </div>
-                    <div class="col-lg-2">
+                    <div className="col-lg-2">
                     </div>
                 </div>
             </div>

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.vadin.entity.Users;
-import com.vadin.entity.viewmodel.ActivitySubmitViewModel;
 import com.vadin.repository.UserRepository;
 import com.vadin.service.ActivityService;
 import com.vadin.service.UserService;

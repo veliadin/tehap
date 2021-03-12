@@ -57,7 +57,7 @@ const TopBar = (props) => {
                 <Link className="nav-link"
                     to="/login">{t('Login')}</Link>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
                 <Link className="nav-link"
                     to="/signup">{t('Sign Up')}</Link>
             </li>

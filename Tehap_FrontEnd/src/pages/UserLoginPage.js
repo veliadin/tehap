@@ -9,7 +9,6 @@ import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import '../css/style.css';
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { Link, useRouteMatch } from 'react-router-dom';
 
 const UserLoginPage = (props) => {
     const [username, setUsername] = useState();
@@ -77,7 +76,6 @@ const UserLoginPage = (props) => {
             } catch (error) {
                 setError("Something wrong in Facebook Login");
             }
-
         }
     };
     //Facebook Area F Google S
@@ -89,11 +87,10 @@ const UserLoginPage = (props) => {
             const { push } = history;
             setError(undefined);
             try {
-
                 form = {
                     providerId: response.googleId, //response.googleId
                     username: response.profileObj.givenName,//response.profileObj.givenName
-                    displayName: response.profileObj.givenName, // response.name
+                    displayName: response.profileObj.givenName, //response.name
                     imageUrl: response.profileObj.imageUrl, //response.profileObj.imageUrl
                     email: response.profileObj.email,//response.profileObj.email
                     provider: response.tokenObj.idpId//response.tokenObj.idpId
@@ -104,31 +101,29 @@ const UserLoginPage = (props) => {
             } catch (error) {
                 setError("Something wrong in Google Login");
             }
-
         }
     };
 
-    //Google F
     const { t } = useTranslation();
     const pendingApiCall = useApiProgress('post', '/api/auth');
     const buttonEnabled = username && password;
     return (
-        <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-            <div class="card card0 border-0">
-                <div class="row d-flex">
-                    <div class="col-lg-6">
-                        <div class="card1 pb-5 card-body">
-                            <h1 className="card-title">TEHAPY</h1>
+        <div className="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+            <div className="card card0 border-0">
+                <div className="row d-flex">
+                    <div className="col-lg-6">
+                        <div className="card1 pb-5 card-body">
+                            <h1 className="card-title">{t('TEHAPY')}</h1>
                             <p className="card-text"> {t('Tehapy Description')}</p>
                             <p className="card-text"> {t('Tehapy Activity Description')}</p>
                             <p className="card-text"> {t('Tehapy User Description')}</p>
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="card2 card border-0 px-4 py-5">
-                            <div class="row mb-4 px-3">
-                                <div class="text-center mr-4" style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    <div className="col-lg-6">
+                        <div className="card2 card border-0 px-4 py-5">
+                            <div className="row mb-4 px-3">
+                                <div className="text-center mr-4" style={{ display: 'flex', flexWrap: 'wrap' }}>
 
                                     <FacebookLogin
                                         appId="2978237078953063"
@@ -139,7 +134,6 @@ const UserLoginPage = (props) => {
                                         icon={<FaFacebook color='white' size='1.4rem'></FaFacebook>}
                                         textButton={t('Sign In with Facebook')}
                                     />
-
                                     <GoogleLogin
                                         clientId="181124231251-7hfpmban9e79jkgllfph3rnp0i8o6t27.apps.googleusercontent.com"
                                         buttonText="Login"
@@ -151,9 +145,9 @@ const UserLoginPage = (props) => {
                                     />
                                 </div>
                             </div>
-                            <div class="row px-3 mb-4">
-                                <div class="line"></div> <small class="or text-center">Or</small>
-                                <div class="line"></div>
+                            <div className="row px-3 mb-4">
+                                <div className="line"></div> <small className="or text-center">Or</small>
+                                <div className="line"></div>
                             </div>
                             <Input label={t('Username')} onChange={event => setUsername(event.target.value)} />
                             <Input label={t('Password')} type="password" onChange={event => setPassword(event.target.value)} />
@@ -164,8 +158,7 @@ const UserLoginPage = (props) => {
                                 disabled={!buttonEnabled || pendingApiCall}
                                 pendingApiCall={pendingApiCall}
                                 text={t('Login')} />
-
-                            <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <a class="text-danger"></a></small> </div>
+                            <div className="row mb-4 px-3"> <small className="font-weight-bold">{t(`Don't have an account?`)} <a className="text-danger"></a></small> </div>
                         </div>
                     </div>
                 </div>
@@ -174,6 +167,5 @@ const UserLoginPage = (props) => {
         </div >
     );
 }
-
 
 export default UserLoginPage;

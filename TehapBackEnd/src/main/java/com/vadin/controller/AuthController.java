@@ -24,8 +24,4 @@ public class AuthController {
 	UserViewModel handleAuthentication(@CurrentUser Users user) {
 		return new UserViewModel(user);
 	}
-	
-	
-	
-
 }

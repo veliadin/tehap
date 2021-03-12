@@ -28,6 +28,17 @@ public class UserService {
 	
 	public void save(Users user) {
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		if(user.getImage() != null) {
+			String oldImageName = user.getImage();
+			//user.setImage(updatedUser.getImage());
+			try {
+				String storedFileName = fileService.writeBase64EncodedStringToFile(user.getImage());
+				user.setImage(storedFileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			fileService.deleteProfileImage(oldImageName);
+		}
 		userRepository.save(user);
 	}
 	public Page<Users> getUsers(Pageable page, Users user){
@@ -46,6 +57,9 @@ public class UserService {
 	public Users updateUser(String username, UserUpdateViewModel updatedUser) {
 		Users user = getByUsername(username);
 		user.setDisplayName(updatedUser.getDisplayName());
+		user.setBranch(updatedUser.getBranch());
+		user.setEmail(updatedUser.getEmail());
+		user.setUniversity(updatedUser.getUniversity());
 		if(updatedUser.getImage() != null) {
 			String oldImageName = user.getImage();
 			//user.setImage(updatedUser.getImage());

@@ -16,12 +16,10 @@ import "react-datepicker/dist/react-datepicker.css";
 const ActivitySubmit = () => {
     const { image } = useSelector((store) => ({ image: store.image }));
     const [focused, setFocused] = useState(false);
-
     const { t } = useTranslation();
     const [errors, setErrors] = useState({});
     const [newImage, setNewImage] = useState();
     const [attachmentId, setAttachmentId] = useState();
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
@@ -45,7 +43,6 @@ const ActivitySubmit = () => {
 
     const pendingApiCall = useApiProgress('post', '/api/createActivity', true);
     const pendingFileUpload = useApiProgress('post', "/api/activity-attachments", true);
-
 
     useEffect(() => {
         setErrors({})
@@ -75,14 +72,12 @@ const ActivitySubmit = () => {
         const body = {
             title: title,
             attachmentId: attachmentId,
-
             description: description,
             location: location,
             startDate: startDate,
             activityHour: activityHour,
-            activityMinute: activityMinute
+            activityMinute: activityMinute,
         };
-
         try {
             console.log(body);
             await createActivity(body);
@@ -93,7 +88,6 @@ const ActivitySubmit = () => {
             }
         }
     }
-
     let textAreaClass = 'form-control';
     if (errors.title) {
         textAreaClass += ' is-invalid';
@@ -108,6 +102,7 @@ const ActivitySubmit = () => {
                     </>
                 )}
                 <textarea className={textAreaClass}
+                    style={{ marginLeft: 5 }}
                     rows={focused ? '1' : '1'}
                     onFocus={() => setFocused(true)}
                     onChange={(event) => setTitle(event.target.value)}
@@ -130,15 +125,12 @@ const ActivitySubmit = () => {
                             <div className="col-lg-5 d-flex align-items-center">
                                 <Input label={t('Hour')} onChange={event => setActivityHour(event.target.value)}></Input> <Input label={t('Minute')} onChange={event => setActivityMinute(event.target.value)}></Input>
                             </div>
-
                         </div>
                         <Input label={t('Activity Location')} onChange={event => setLocation(event.target.value)}></Input>
                         <h6>{t('Promotional Picture')}</h6>
                         {!newImage && <Input type="file" onChange={onChangeFile} />}
                         {newImage && <AutoUploadImage image={newImage} uploading={pendingFileUpload} />}
                         <div className="text-right mt-1">
-
-
                             <ButtonWithProgress className="btn btn-primary"
                                 onClick={onClickEvent}
                                 text="Activity"
@@ -148,9 +140,7 @@ const ActivitySubmit = () => {
                             <button
                                 className="btn btn-light d-inline-flex ml-1"
                                 onClick={() => setFocused(false)}
-                                disabled={pendingApiCall || pendingFileUpload}
-
-                            >
+                                disabled={pendingApiCall || pendingFileUpload}>
                                 <i className="material-icons">close</i>
                                 {t('Cancel')}
                             </button>

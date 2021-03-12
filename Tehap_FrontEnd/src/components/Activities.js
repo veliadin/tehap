@@ -49,7 +49,6 @@ const Activities = () => {
 
 
     useEffect(() => {
-
         const loadActivities = async page => {
             try {
                 const response = await getActivities(username, page);
